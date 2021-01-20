@@ -116,6 +116,7 @@ impl WsServerTask {
         let addrs = format!("{}:{}", host, port);
 
         let stream = TcpStream::connect(addrs).await?;
+        stream.set_nodelay(true)?;
 
         let socket = if scheme == "wss" {
             #[cfg(feature = "ws-tls")]
